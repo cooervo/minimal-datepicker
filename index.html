@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="stylesheet" href="pikaday/css/pikaday.css">
+</head>
+<body>
+<h1>Datepicker easy example</h1>
+
+<label for="datepicker">Date:</label>
+<input type="text" id="datepicker">
+<script src="pikaday/pikaday.js"></script>
+<script>
+  function formatDate(inputFormat) {
+    function pad(s) { return (s < 10) ? '0' + s : s; }
+    var d = new Date(inputFormat);
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-');
+  }
+
+  var currentYear = new Date().getFullYear()
+  var twoMoreYears = currentYear+2
+  var picker = new Pikaday(
+    {
+      field: document.getElementById('datepicker'),
+      firstDay: 1,
+      minDate: new Date(),
+      maxDate: new Date(twoMoreYears, 12, 31),
+      yearRange: [currentYear, twoMoreYears],
+      onSelect: function(e) {
+        console.log('onSelect', e);
+        console.log('formatted',formatDate(e))
+      },
+    });
+
+</script>
+</body>
+</html>
